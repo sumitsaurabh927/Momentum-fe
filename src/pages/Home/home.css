@@ -11,6 +11,7 @@
 }
 .home_container_right{
     flex: .3;
+    box-shadow: 2px 10px 10px rgba(236, 109, 109, 0.4);
 }
 .home_form_container{
     display: flex;

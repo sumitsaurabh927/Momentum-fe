@@ -18,6 +18,14 @@
     border-radius: 3px;
     color: white;
     border: none;
+    margin: 0rem 1rem;
+    box-shadow: 0px 5px 10px rgba(0.1,0.5,0.5,0.1);
+    padding: 10px;
+}
+.header_theme_button{
+    cursor: pointer;
+    border-radius: 3px;
+    border: none;
     box-shadow: 0px 5px 10px rgba(0.1,0.5,0.5,0.1);
     padding: 10px;
 }

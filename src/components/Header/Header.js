@@ -32,8 +32,9 @@ const Header = () => {
         navigate("/")
     }
 
-    const clickHandeler=()=>{
+    const themeHandeler=()=>{
         setTheme((prev)=>!prev);
+        document.body.classList.toggle("dark-mode");
     }
   return (
     <header className="header">
@@ -52,7 +53,7 @@ const Header = () => {
                 ):(
                     <button className='header_button' onClick={handleLogin}>Login</button>
                 )}
-                <button onClick={clickHandeler} className="header_button">{theme?"Light":"Dark"}</button>
+                <button onClick={themeHandeler} className="header_theme_button" style={{backgroundColor: theme ? "#fff" :"#000", color: theme ? "#000":"#fff"}}>{theme?"Light":"Dark"}</button>
             </div>
         </div>
     </header>
