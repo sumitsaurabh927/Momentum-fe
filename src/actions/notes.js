@@ -1,4 +1,4 @@
-import * as api from "../api/index"
+import * as api from "../common/api";
 import {toast} from "react-toastify";
 
 export const getNotes=()=>async (dispatch)=>{
