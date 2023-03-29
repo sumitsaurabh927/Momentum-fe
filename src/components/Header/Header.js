@@ -1,9 +1,36 @@
-import React,{useState} from 'react';
-import { Link } from 'react-router-dom';
+import React,{useCallback, useEffect, useState} from 'react';
+import { useDispatch } from 'react-redux';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import "./header.css";
+import decode from "jwt-decode";
+import {toast} from "react-toastify";
 
 const Header = () => {
     const [theme,setTheme]=useState(false);
+    const [user,setUser]=useState(JSON.parse(localStorage.getItem("profile")));
+
+    const navigate=useNavigate();
+    const location=useLocation();
+    const dispatch=useDispatch();
+
+    const handleLogout = useCallback(() =>{
+        dispatch({type:"LOGOUT"});
+        navigate("/");
+        toast.success("logged out successfully");
+    },[dispatch,navigate]);
+
+    useEffect(()=>{
+        const token=user?.token;
+        if(token){
+            const decodedToken=decode(token);
+            if (decodedToken.exp * 1000 < new Date().getTime()) handleLogout();
+        }
+        setUser(JSON.parse(localStorage.getItem("profile")))
+    },[user?.token,handleLogout,location]);
+
+    const handleLogin = () => {
+        navigate("/")
+    }
 
     const clickHandeler=()=>{
         setTheme((prev)=>!prev);
@@ -17,6 +44,14 @@ const Header = () => {
                 </Link>
             </div>
             <div className="header_right">
+            {user?(
+                    <>
+                        <span>{user?.result?.name}</span>
+                        <button className="header_button" onClick={handleLogout}>Logout</button>
+                    </>
+                ):(
+                    <button className='header_button' onClick={handleLogin}>Login</button>
+                )}
                 <button onClick={clickHandeler} className="header_button">{theme?"Light":"Dark"}</button>
             </div>
         </div>
