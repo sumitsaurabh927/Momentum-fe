@@ -6,11 +6,11 @@ import { signup } from '../../actions/auth';
 
 const Signup = () => {
     const [formValue,setFormValue]=useState({
-        firstName:"",
-        lastName:"",
+        first_name:"",
+        last_name:"",
         email:"",
         password:"",
-        confirmPassword:"",    
+        confirm_password:"",    
     });
 
     const dispatch = useDispatch();
@@ -41,8 +41,8 @@ const Signup = () => {
               type="text" 
               className="auth_input"
               id="firstname" 
-              value={formValue.firstName} 
-              name="firstName" 
+              value={formValue.first_name} 
+              name="first_name" 
               onChange={handleChange} 
               placeholder="Firstname" 
             />
@@ -50,8 +50,8 @@ const Signup = () => {
               type="text" 
               className="auth_input"
               id="lastname" 
-              value={formValue.lastName} 
-              name="lastName" 
+              value={formValue.last_name} 
+              name="last_name" 
               onChange={handleChange} 
               placeholder="Lastname" 
             />
@@ -81,8 +81,8 @@ const Signup = () => {
               type="text" 
               className="auth_input"
               id="confirmpassword" 
-              value={formValue.confirmPassword} 
-              name="confirmPassword" 
+              value={formValue.confirm_password} 
+              name="confirm_password" 
               onChange={handleChange} 
               placeholder="Re-Enter you password" 
             />
