@@ -13,6 +13,7 @@ const Home = () => {
     description:"",
   })
   const [currentId,setCurrentId]=useState(null);
+  const [addMore,setAddMore]=useState(false);
 
   const dispatch = useDispatch();
 
@@ -53,43 +54,53 @@ const Home = () => {
     setInputText({title:"",description:""});
   }
 
+  const addMoreHandler = (e) => {
+    e.preventDefault();
+    setAddMore((prev)=>!prev);
+  }
+
 
   return (
     <main className="home">
       <Header/>
       <div className="home_container">
-        <div className="home_container_left">
-        {notes.length>0?
-        (
-        <>
-          {notes.filter((note)=>note?.creator===user?.result?._id).map((item,i)=>(
-            <Note key={i} item={item} setCurrentId={setCurrentId}/>
-          ))}
-        </>
-        ):
-        <h2>Start adding ToDO's</h2>}          
-        </div>
-        <div className="home_container_right">
+        <div className="home_container_top">
           <form className="home_form_container" onSubmit={handleSubmitNote}>
             <h3 className="form_heading">Create A Todo</h3>
-            <input 
-              type="text" 
-              value={inputText.title} 
-              name="title" 
-              onChange={changeHandeler} 
-              className="form_input" 
-              placeholder="Text" 
-            />
-            <textarea 
-              type="text" 
-              value={inputText.description} 
-              name="description" 
-              onChange={changeHandeler} 
-              className="form_textarea" 
-              placeholder="Description"
-            />
+            <div className='home_form_top'>
+              <input 
+                type="text" 
+                value={inputText.title} 
+                name="title" 
+                onChange={changeHandeler} 
+                className="form_input" 
+                placeholder="Text" 
+              />
+              <button className="form_add_more" onClick={addMoreHandler}>Add more</button>
+            </div>
+            {addMore && (
+              <textarea 
+                type="text" 
+                value={inputText.description} 
+                name="description" 
+                onChange={changeHandeler} 
+                className="form_textarea" 
+                placeholder="Description"
+              />
+            )}
             <button className="form_button">Create</button>
           </form>
+        </div>
+        <div className="home_container_bottom">
+          {notes.length>0?
+          (
+          <>
+            {notes.filter((note)=>note?.creator===user?.result?._id).map((item,i)=>(
+              <Note key={i} item={item} setCurrentId={setCurrentId}/>
+            ))}
+          </>
+          ):
+          <h2>Start adding ToDO's</h2>}          
         </div>
       </div>
 
