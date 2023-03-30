@@ -32,3 +32,10 @@
 .note_delete{
     background-color: red;
 }
+.note_done{
+    background-color: rgb(23, 223, 33);
+}
+.done{
+    text-decoration: line-through;
+    font-weight: bolder;
+}
