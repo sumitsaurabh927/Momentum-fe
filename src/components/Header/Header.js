@@ -6,7 +6,7 @@ import decode from "jwt-decode";
 import {toast} from "react-toastify";
 
 const Header = () => {
-    const [theme,setTheme]=useState(false);
+    const [theme,setTheme]=useState(localStorage.getItem("theme") === "dark");
     const [user,setUser]=useState(JSON.parse(localStorage.getItem("profile")));
 
     const navigate=useNavigate();
@@ -33,9 +33,20 @@ const Header = () => {
     }
 
     const themeHandeler=()=>{
-        setTheme((prev)=>!prev);
+        const newTheme = !theme;
+        setTheme(newTheme);
+        localStorage.setItem("theme", newTheme ? "dark" : "light");
         document.body.classList.toggle("dark-mode");
     }
+
+    useEffect(() => {
+        if (theme) {
+            document.body.classList.add("dark-mode");
+        } else {
+            document.body.classList.remove("dark-mode");
+        }
+    }, [theme]);
+
   return (
     <header className="header">
         <div className="header_container">
