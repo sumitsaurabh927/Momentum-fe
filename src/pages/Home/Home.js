@@ -11,6 +11,7 @@ const Home = () => {
   const [inputText,setInputText]=useState({
     title:"",
     description:"",
+    email:""
   })
   const [currentId,setCurrentId]=useState(null);
   const [addMore,setAddMore]=useState(false);
@@ -51,7 +52,7 @@ const Home = () => {
 
   const handleClearNote=()=>{
     setCurrentId(null);
-    setInputText({title:"",description:""});
+    setInputText({title:"",description:"",email:""});
   }
 
   const addMoreHandler = (e) => {
@@ -75,6 +76,14 @@ const Home = () => {
                 onChange={changeHandeler} 
                 className="form_input" 
                 placeholder="Text" 
+              />
+              <input 
+                type="email" 
+                value={inputText.email} 
+                name="email" 
+                onChange={changeHandeler} 
+                className="form_input" 
+                placeholder="Enter Assignee Email" 
               />
               <button className="form_add_more" onClick={addMoreHandler}>Add more</button>
             </div>
