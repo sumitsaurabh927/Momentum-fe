@@ -11,7 +11,8 @@ const Home = () => {
   const [inputText,setInputText]=useState({
     title:"",
     description:"",
-    email:""
+    email:"",
+    phone:""
   })
   const [currentId,setCurrentId]=useState(null);
   const [addMore,setAddMore]=useState(false);
@@ -42,24 +43,26 @@ const Home = () => {
 
   const handleSubmitNote=(e)=>{
     e.preventDefault();
+    if (!inputText.title || !inputText.email) {
+      return; // do nothing if title or email is empty
+    }
     if(currentId){
       dispatch(updateNote(currentId,inputText));
     }else{
-      dispatch(createNote(inputText));
+      dispatch(createNote({...inputText,phone: Number(inputText.phone)}));
     }
     handleClearNote();
   }
 
   const handleClearNote=()=>{
     setCurrentId(null);
-    setInputText({title:"",description:"",email:""});
+    setInputText({title:"",description:"",email:"",phone:""});
   }
 
   const addMoreHandler = (e) => {
     e.preventDefault();
     setAddMore((prev)=>!prev);
   }
-
 
   return (
     <main className="home">
@@ -84,6 +87,14 @@ const Home = () => {
                 onChange={changeHandeler} 
                 className="form_input" 
                 placeholder="Enter Assignee Email" 
+              />
+              <input 
+                type="number" 
+                value={inputText.phone} 
+                name="phone" 
+                onChange={changeHandeler} 
+                className="form_input" 
+                placeholder="Enter Phone no." 
               />
               <button className="form_add_more" onClick={addMoreHandler}>Add more</button>
             </div>

@@ -11,11 +11,10 @@
 }
 .home_container_bottom{
     margin: 1rem 0rem;
-    /* width: 40%; */
 }
 .home_container_top{
     box-shadow: 2px 10px 10px rgba(236, 109, 109, 0.4);
-    width: 40%;
+    width: 55%;
 }
 .home_form_container{
     display: flex;
