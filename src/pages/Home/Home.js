@@ -5,6 +5,8 @@ import "./home.css";
 import {getNotes,createNote,updateNote} from "../../actions/notes";
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 
 const Home = () => {
@@ -12,10 +14,14 @@ const Home = () => {
     title:"",
     description:"",
     email:"",
-    phone:""
+    phone:"",
+    date: null,
   })
   const [currentId,setCurrentId]=useState(null);
   const [addMore,setAddMore]=useState(false);
+
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [notesByDate, setNotesByDate] = useState({});
 
   const dispatch = useDispatch();
 
@@ -41,11 +47,26 @@ const Home = () => {
     })
   }
 
+  useEffect(() => {
+    const notesByDate = notes.reduce((acc, note) => {
+      const noteDate = new Date(note.date);
+      const dateStr = noteDate.toDateString();
+      if (!acc[dateStr]) {
+        acc[dateStr] = [note];
+      } else {
+        acc[dateStr].push(note);
+      }
+      return acc;
+    }, {});
+    setNotesByDate(notesByDate);
+  }, [notes]);
+
   const handleSubmitNote=(e)=>{
     e.preventDefault();
     if (!inputText.title || !inputText.email) {
       return; // do nothing if title or email is empty
     }
+    inputText.date = selectedDate.toISOString();
     if(currentId){
       dispatch(updateNote(currentId,inputText));
     }else{
@@ -57,6 +78,7 @@ const Home = () => {
   const handleClearNote=()=>{
     setCurrentId(null);
     setInputText({title:"",description:"",email:"",phone:""});
+    setSelectedDate(null)
   }
 
   const addMoreHandler = (e) => {
@@ -64,7 +86,11 @@ const Home = () => {
     setAddMore((prev)=>!prev);
   }
 
-  return (
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
+
+  return (  
     <main className="home">
       <Header/>
       <div className="home_container">
@@ -88,6 +114,10 @@ const Home = () => {
                 className="form_input" 
                 placeholder="Enter Assignee Email" 
               />
+              
+              <button className="form_add_more" onClick={addMoreHandler}>Add more</button>
+            </div>
+            <div className='home_form_top'>
               <input 
                 type="number" 
                 value={inputText.phone} 
@@ -96,7 +126,13 @@ const Home = () => {
                 className="form_input" 
                 placeholder="Enter Phone no." 
               />
-              <button className="form_add_more" onClick={addMoreHandler}>Add more</button>
+              <DatePicker
+                selected={selectedDate}
+                name="date"
+                onChange={handleDateChange}
+                placeholderText="Select date"
+                dateFormat="dd/MM/yyyy"
+              />
             </div>
             {addMore && (
               <textarea 
@@ -112,15 +148,24 @@ const Home = () => {
           </form>
         </div>
         <div className="home_container_bottom">
-          {notes.length>0?
-          (
-          <>
-            {notes.filter((note)=>note?.creator===user?.result?._id).map((item,i)=>(
-              <Note key={i} item={item} setCurrentId={setCurrentId}/>
-            ))}
-          </>
-          ):
-          <h2>Start adding ToDO's</h2>}          
+          {Object.entries(notesByDate).length > 0 ? (
+            Object.entries(notesByDate).map(([dateStr, notes]) => {
+              // Filter notes by user ID
+              const userNotes = notes.filter((note) => note.creator === user?.result?._id);
+              return userNotes.length > 0 ? (
+                <div key={dateStr}>
+                  <h2 className="note_row_title">{new Date(dateStr).toLocaleDateString()}</h2>
+                  <div className="note_row">
+                    {userNotes.map((note) => (
+                      <Note key={note._id} item={note} setCurrentId={setCurrentId} />
+                    ))}
+                  </div>
+                </div>
+              ) : null;
+            })
+          ) : (
+            <h2>No notes found for selected date</h2>
+          )}        
         </div>
       </div>
 
