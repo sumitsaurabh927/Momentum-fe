@@ -1,0 +1,35 @@
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+  }
+  
+  .loader_inner {
+    display: inline-block;
+    position: relative;
+    width: 60px;
+    height: 60px;
+  }
+  
+  .loader_inner:after {
+    content: " ";
+    display: block;
+    border-radius: 50%;
+    width: 0;
+    height: 0;
+    margin: 0 auto;
+    border: 30px solid #3125dc;
+    border-color: #20bbef transparent #9309ef transparent;
+    animation: loader 1.2s infinite;
+  }
+  
+  @keyframes loader {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
