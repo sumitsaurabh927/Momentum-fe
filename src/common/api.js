@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API= axios.create({baseURL:"https://momentum-backend.onrender.com/"});
+const API= axios.create({baseURL:"http://localhost:5000/"});
 
 API.interceptors.request.use((req)=>{
     if(localStorage.getItem("profile")){
@@ -24,4 +24,5 @@ export const deleteNote= (id)=>API.delete(`/notes/${id}`);
 // for novu implementation
 export const sendSms = (note) => API.post('/notes/send-sms',note);
 export const sendEmail = (note) => API.post('/notes/send-email',note);
+export const deleteInApp = (note) => API.post('/notes/delete',note);
 

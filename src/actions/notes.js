@@ -57,3 +57,12 @@ export const sendEmailNotification = (note) => async (dispatch) => {
         console.log("sendEmail error",error);
     }
 }
+
+export const deleteTodoInApp = (note) => async (dispatch) => {
+    try {
+        const response = await api.deleteInApp(note);
+        console.log("deleteInApp response",response);
+    } catch (error) {
+        console.log("deleteTodoInApp error",error);
+    }
+}
