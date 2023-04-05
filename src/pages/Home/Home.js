@@ -34,12 +34,14 @@ const Home = () => {
 
   // set the greeting based on the current hour
   let greeting;
-  if (currentHour >= 5 && currentHour < 12) {
+  if (currentHour >= 5 && currentHour < 10) {
     greeting = 'Good morning';
-  } else if (currentHour >= 12 && currentHour < 18) {
+  } else if (currentHour >= 10 && currentHour < 15) {
     greeting = 'Good afternoon';
-  } else {
+  } else if (currentHour >= 15 && currentHour < 19)  {
     greeting = 'Good evening';
+  }else {
+    greeting = 'Good night'
   }
 
   useEffect(()=>{

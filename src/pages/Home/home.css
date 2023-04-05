@@ -13,26 +13,31 @@
     margin: 1rem 0rem;
     width: 90%;
     padding: 1rem;
-    border-radius: 8px;
 }
   
 .note_row_title {
     font-size: 1.2rem;
     font-weight: bold;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0rem;
+    width: 63%;
+    background-color: #282834;
+    padding: 1.5rem .7rem;
+    border-radius: .5rem;
 }
-
 .note_row {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-bottom: 2rem;
+    margin-bottom: 5rem;
 }
 .home_container_top{
-    box-shadow: 2px 10px 10px rgba(236, 109, 109, 0.4);
-    width: 55%;
-    padding: 1.5rem 1rem;
+    background-color: #282834;
+    width: 58.3%;
+    padding: .7rem 0;
+    border-radius: 7px;
+    margin-top: 5rem;
+    margin-bottom: 1rem;
 }
 .home_form_container{
     display: flex;
@@ -84,11 +89,15 @@
 }
 .home_container_heading{
     display: flex;
+    align-items: center;
+    justify-content: start;
 }
 .add_icon{
     padding: 7px;
     background-color: blueviolet;
-    border-radius: 13px;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -105,6 +114,7 @@
 }
 .home_top_heading>h3{
     font-size: 1.75rem;
+    text-transform: capitalize;
 }
 
 @media (max-width: 768px) {

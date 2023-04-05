@@ -110,6 +110,7 @@ const Note = ({item,setCurrentId}) => {
             classname="note_checkbox"
             checked={isDone}
             onChange={donehandler}
+            style={{ height: "20px", width: "20px", border: "2px solid purple" ,borderRadius:"50%"}}
           />
           <h2 className={isDone ? "note_title done" : "note_title"}>{item.title}</h2>
         </div>
@@ -119,10 +120,10 @@ const Note = ({item,setCurrentId}) => {
               <BsReverseLayoutTextWindowReverse/>
             </div>
           )}
-          <div className='icon_container' onClick={emailHandler}>
+          <div className='icon_container note_email' onClick={emailHandler}>
             <MdOutlineEmail/>
           </div>
-          <div className='icon_container' onClick={smsHandler}>
+          <div className='icon_container note_sms' onClick={smsHandler}>
             <MdSms/>
           </div>
           <div className='icon_container note_update' onClick={()=>setCurrentId(item._id)}>

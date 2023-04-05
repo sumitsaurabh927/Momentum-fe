@@ -101,7 +101,7 @@ const Header = () => {
                 <div className="header_container">
                     <div className="header_left">
                         <Link to="#">
-                            <h3 className="header_brand">MoonShine</h3>
+                            <h3 className="header_brand">Moonshine</h3>
                         </Link>
                     </div>
                     <div className="header_right">
