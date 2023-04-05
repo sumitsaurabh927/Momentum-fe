@@ -13,8 +13,6 @@ const Home = () => {
   const [inputText,setInputText]=useState({
     title:"",
     description:"",
-    email:"",
-    phone:"",
     date: null,
   })
   const [currentId,setCurrentId]=useState(null);
@@ -63,21 +61,21 @@ const Home = () => {
 
   const handleSubmitNote=(e)=>{
     e.preventDefault();
-    if (!inputText.title || !inputText.email) {
+    if (!inputText.title) {
       return; // do nothing if title or email is empty
     }
     inputText.date = selectedDate.toISOString();
     if(currentId){
       dispatch(updateNote(currentId,inputText));
     }else{
-      dispatch(createNote({...inputText,phone: Number(inputText.phone)}));
+      dispatch(createNote(inputText));
     }
     handleClearNote();
   }
 
   const handleClearNote=()=>{
     setCurrentId(null);
-    setInputText({title:"",description:"",email:"",phone:""});
+    setInputText({title:"",description:""});
     setSelectedDate(null)
   }
 
@@ -106,18 +104,24 @@ const Home = () => {
                 className="form_input" 
                 placeholder="Text" 
               />
-              <input 
+              {/* <input 
                 type="email" 
                 value={inputText.email} 
                 name="email" 
                 onChange={changeHandeler} 
                 className="form_input" 
                 placeholder="Enter Assignee Email" 
+              /> */}
+              <DatePicker
+                selected={selectedDate}
+                name="date"
+                onChange={handleDateChange}
+                placeholderText="Select date"
+                dateFormat="dd/MM/yyyy"
               />
-              
               <button className="form_add_more" onClick={addMoreHandler}>Add more</button>
             </div>
-            <div className='home_form_top'>
+            {/* <div className='home_form_top'>
               <input 
                 type="number" 
                 value={inputText.phone} 
@@ -133,7 +137,7 @@ const Home = () => {
                 placeholderText="Select date"
                 dateFormat="dd/MM/yyyy"
               />
-            </div>
+            </div> */}
             {addMore && (
               <textarea 
                 type="text" 
