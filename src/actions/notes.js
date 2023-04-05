@@ -4,6 +4,7 @@ import {toast} from "react-toastify";
 export const getNotes=()=>async (dispatch)=>{
     try {
         const {data}= await api.fetchNotes();
+        data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         dispatch({type:"FETCH_ALL",payload:data});
     } catch (error) {
         console.log("getNotes error",error);

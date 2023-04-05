@@ -107,7 +107,6 @@ const Header = () => {
                     <div className="header_right">
                         {user ? (
                             <>
-                                <span>{user?.result?.name}</span>
                                 <button className="header_button" onClick={handleLogout}>Logout</button>
                                 <PopoverNotificationCenter
                                     onNotificationClick={handleNotificationClick}

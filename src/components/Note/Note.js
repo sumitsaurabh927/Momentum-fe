@@ -1,20 +1,24 @@
 import React, { useState, useEffect } from 'react'
 import "./note.css"
-import moment from 'moment';
 import { useDispatch } from 'react-redux';
 import { deleteNote, deleteTodoInApp, sendEmailNotification, sendSmsNotification } from '../../actions/notes';
 import {MdOutlineEmail} from "react-icons/md";
 import {BsTrash3Fill} from "react-icons/bs"
 import {FiEdit} from "react-icons/fi";
 import {MdSms} from "react-icons/md";
+import {BsReverseLayoutTextWindowReverse} from "react-icons/bs";
 
 
 const Note = ({item,setCurrentId}) => {
-  const [isDone,setIsDone]=useState(false);
+  const [isDone,setIsDone]=useState(() => {
+    const storedIsDone = localStorage.getItem(item._id);
+    return storedIsDone !== null ? JSON.parse(storedIsDone) : false;
+  });
   const [email,setEmail]=useState("");
   const [phone,setPhone]=useState("")
   const [isEmail,setIsEmail]=useState(false);
   const [isSms,setIsSms]=useState(false);
+  const [showDescription,setShowDescription]=useState(false);
 
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
   const dispatch = useDispatch();
@@ -30,9 +34,12 @@ const Note = ({item,setCurrentId}) => {
     setUser(JSON.parse(localStorage.getItem("profile")))
   },[])
 
+  useEffect(()=>{
+    localStorage.setItem(item._id, JSON.stringify(isDone));
+  },[isDone, item._id])
+
   const donehandler = () => {
     setIsDone((prev)=>!prev);
-    localStorage.setItem(item._id, JSON.stringify(true));
   }
 
   const deleteTodoHandler = async () => {
@@ -56,6 +63,10 @@ const Note = ({item,setCurrentId}) => {
 
   const emailHandler = () => {
     setIsEmail((prev)=>!prev);
+  }
+
+  const descriptionHandler = () => {
+    setShowDescription((prev)=>!prev);
   }
 
   const handleSubmitEmail = async (e) => {
@@ -103,6 +114,11 @@ const Note = ({item,setCurrentId}) => {
           <h2 className={isDone ? "note_title done" : "note_title"}>{item.title}</h2>
         </div>
         <div className="note_button_container">
+          {item.description.length>0 && (
+            <div className='icon_container' onClick={descriptionHandler}>
+              <BsReverseLayoutTextWindowReverse/>
+            </div>
+          )}
           <div className='icon_container' onClick={emailHandler}>
             <MdOutlineEmail/>
           </div>
@@ -118,7 +134,9 @@ const Note = ({item,setCurrentId}) => {
         </div>
       </div>
       <div className='note_input_container'>
-        <p className={isDone ? "note_description done" : "note_description"}>{item.description}</p>
+        {showDescription && (
+          <p className={isDone ? "note_description done" : "note_description"}>{item.description}</p>
+        )}
         {isEmail && (
           <form className='note_form_container' onSubmit={handleSubmitEmail}>
             <input
@@ -143,7 +161,6 @@ const Note = ({item,setCurrentId}) => {
             <button className='note_form_button'>Send sms</button>
           </form>
         )}
-        <span>created on {moment(item.createdAt).fromNow()}</span>
       </div>
     </div>
 

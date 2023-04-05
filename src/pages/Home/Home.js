@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import {TiPlus} from "react-icons/ti";
 
 
 const Home = () => {
@@ -17,9 +18,11 @@ const Home = () => {
   })
   const [currentId,setCurrentId]=useState(null);
   const [addMore,setAddMore]=useState(false);
+  const [showForm,setShowForm]=useState(false);
 
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [notesByDate, setNotesByDate] = useState({});
+
 
   const dispatch = useDispatch();
 
@@ -27,6 +30,17 @@ const Home = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
   const updatedNote = useSelector((state)=>currentId ? state.notes.find((c)=>c._id===currentId):null);
 
+  const currentHour = new Date().getHours();
+
+  // set the greeting based on the current hour
+  let greeting;
+  if (currentHour >= 5 && currentHour < 12) {
+    greeting = 'Good morning';
+  } else if (currentHour >= 12 && currentHour < 18) {
+    greeting = 'Good afternoon';
+  } else {
+    greeting = 'Good evening';
+  }
 
   useEffect(()=>{
     dispatch(getNotes());
@@ -88,43 +102,58 @@ const Home = () => {
     setSelectedDate(date);
   };
 
+const addDetailsHandler = () => {
+  setShowForm((prev)=>!prev);
+}
+
   return (  
     <main className="home">
       <Header/>
       <div className="home_container">
+        <div className='home_top_heading'>
+          <h1>{greeting} ,</h1>
+          <h3>{user?.result?.name}</h3>
+        </div>
         <div className="home_container_top">
-          <form className="home_form_container" onSubmit={handleSubmitNote}>
-            <h3 className="form_heading">Create A Todo</h3>
-            <div className='home_form_top'>
-              <input 
-                type="text" 
-                value={inputText.title} 
-                name="title" 
-                onChange={changeHandeler} 
-                className="form_input" 
-                placeholder="Text" 
-              />
-              <DatePicker
-                selected={selectedDate}
-                name="date"
-                onChange={handleDateChange}
-                placeholderText="Select date"
-                dateFormat="dd/MM/yyyy"
-              />
-              <button className="form_add_more" onClick={addMoreHandler}>Add more</button>
+          <div className='home_container_heading'>
+            <div className='add_icon' onClick={addDetailsHandler}>
+              <TiPlus/>
             </div>
-            {addMore && (
-              <textarea 
-                type="text" 
-                value={inputText.description} 
-                name="description" 
-                onChange={changeHandeler} 
-                className="form_textarea" 
-                placeholder="Description"
-              />
-            )}
-            <button className="form_button">Create</button>
-          </form>
+            <h3 className="form_heading">Create A Todo</h3>
+          </div>
+          {showForm && (
+            <form className="home_form_container" onSubmit={handleSubmitNote}>
+              <div className='home_form_top'>
+                <input 
+                  type="text" 
+                  value={inputText.title} 
+                  name="title" 
+                  onChange={changeHandeler} 
+                  className="form_input" 
+                  placeholder="Text" 
+                />
+                <DatePicker
+                  selected={selectedDate}
+                  name="date"
+                  onChange={handleDateChange}
+                  placeholderText="Select date"
+                  dateFormat="dd/MM/yyyy"
+                />
+                <button className="form_add_more" onClick={addMoreHandler}>Add more</button>
+              </div>
+              {addMore && (
+                <textarea 
+                  type="text" 
+                  value={inputText.description} 
+                  name="description" 
+                  onChange={changeHandeler} 
+                  className="form_textarea" 
+                  placeholder="Description"
+                />
+              )}
+              <button className="form_button">Create</button>
+            </form>
+          )}
         </div>
         <div className="home_container_bottom">
           {Object.entries(notesByDate).length > 0 ? (
@@ -133,8 +162,8 @@ const Home = () => {
               const userNotes = notes.filter((note) => note.creator === user?.result?._id);
               return userNotes.length > 0 ? (
                 <div key={dateStr}>
-                  <h2 className="note_row_title">{new Date(dateStr).toLocaleDateString()}</h2>
                   <div className="note_row">
+                    <h2 className="note_row_title">{new Date(dateStr).toLocaleDateString()}</h2>
                     {userNotes.map((note) => (
                       <Note key={note._id} item={note} setCurrentId={setCurrentId} />
                     ))}
