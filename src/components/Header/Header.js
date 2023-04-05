@@ -107,11 +107,11 @@ const Header = () => {
                     <div className="header_right">
                         {user ? (
                             <>
-                                <button className="header_button" onClick={handleLogout}>Logout</button>
+                                <button onClick={themeHandeler} className="header_theme_button" style={{ backgroundColor: theme ? "#fff" : "#000", color: theme ? "#000" : "#fff" }}>{theme ? "Light" : "Dark"}</button>
                                 <PopoverNotificationCenter
                                     onNotificationClick={handleNotificationClick}
                                     listItem={(notification) => {
-                                        if(notification.payload.message === "created"){
+                                        if (notification.payload.message === "created") {
                                             return (
                                                 <div
                                                     className='notification_container'
@@ -122,7 +122,7 @@ const Header = () => {
                                                     <p style={{ color: theme ? "#fff" : "#000" }}>{notification.payload.description}</p>
                                                 </div>
                                             );
-                                        }else if(notification.payload.message === "deleted"){
+                                        } else if (notification.payload.message === "deleted") {
                                             return (
                                                 <div
                                                     className='notification_container'
@@ -139,11 +139,12 @@ const Header = () => {
                                 >
                                     {({ unseenCount }) => <NotificationBell unseenCount={unseenCount} />}
                                 </PopoverNotificationCenter>
+                                <button className="header_button" onClick={handleLogout}>Logout</button>
                             </>
                         ) : (
                             <button className='header_button' onClick={handleLogin}>Login</button>
                         )}
-                        <button onClick={themeHandeler} className="header_theme_button" style={{ backgroundColor: theme ? "#fff" : "#000", color: theme ? "#000" : "#fff" }}>{theme ? "Light" : "Dark"}</button>
+                        
                     </div>
                 </div>
             </NovuProvider>

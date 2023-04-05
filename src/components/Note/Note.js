@@ -110,7 +110,7 @@ const Note = ({item,setCurrentId}) => {
             classname="note_checkbox"
             checked={isDone}
             onChange={donehandler}
-            style={{ height: "20px", width: "20px", border: "2px solid purple" ,borderRadius:"50%"}}
+            style={{ height: "20px", width: "20px", border: "2px solid purple" ,borderRadius:"50%", cursor:"pointer"}}
           />
           <h2 className={isDone ? "note_title done" : "note_title"}>{item.title}</h2>
         </div>

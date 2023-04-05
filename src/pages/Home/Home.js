@@ -116,9 +116,9 @@ const addDetailsHandler = () => {
           <h1>{greeting} ,</h1>
           <h3>{user?.result?.name}</h3>
         </div>
-        <div className="home_container_top">
+        <div className="home_container_top" onClick={addDetailsHandler}>
           <div className='home_container_heading'>
-            <div className='add_icon' onClick={addDetailsHandler}>
+            <div className='add_icon' >
               <TiPlus/>
             </div>
             <h3 className="form_heading">Create A Todo</h3>
