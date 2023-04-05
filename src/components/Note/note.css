@@ -39,6 +39,10 @@
     cursor: pointer;
     font-size: larger;
 }
+/* .icon_container:hover{
+color: red;
+} */
+
 .note_update:hover,
 .note_sms:hover,
 .note_email:hover{
