@@ -27,6 +27,10 @@
     padding: 1.5rem .7rem;
     border-radius: .5rem;
 }
+.note_row_title:hover{
+    background-color: #2e2e3b;
+
+}
 .note_row {
     display: flex;
     flex-direction: column;
