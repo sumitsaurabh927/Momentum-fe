@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react'
 import "./note.css"
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
-import { deleteNote, sendEmailNotification, sendSmsNotification } from '../../actions/notes';
+import { deleteNote, deleteTodoInApp, sendEmailNotification, sendSmsNotification } from '../../actions/notes';
 import {MdOutlineEmail} from "react-icons/md";
 import {BsTrash3Fill} from "react-icons/bs"
 import {FiEdit} from "react-icons/fi";
 import {MdSms} from "react-icons/md";
+
 
 const Note = ({item,setCurrentId}) => {
   const [isDone,setIsDone]=useState(false);
@@ -14,6 +15,8 @@ const Note = ({item,setCurrentId}) => {
   const [phone,setPhone]=useState("")
   const [isEmail,setIsEmail]=useState(false);
   const [isSms,setIsSms]=useState(false);
+
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
   const dispatch = useDispatch();
 
   useEffect(()=>{
@@ -23,9 +26,28 @@ const Note = ({item,setCurrentId}) => {
     }
   },[item._id])
 
+  useEffect(()=>{
+    setUser(JSON.parse(localStorage.getItem("profile")))
+  },[])
+
   const donehandler = () => {
-    setIsDone(true);
+    setIsDone((prev)=>!prev);
     localStorage.setItem(item._id, JSON.stringify(true));
+  }
+
+  const deleteTodoHandler = async () => {
+    const deleteInAppNote={
+      title: item.title,
+      description: item.description,
+      userId: user?.result?._id,
+      message: "deleted"
+    }
+    try {
+      dispatch(deleteTodoInApp(deleteInAppNote));
+      dispatch(deleteNote(item._id))
+    } catch (error) {
+      console.log("deleteTodoHandler error",error);
+    }
   }
 
   const smsHandler = () => {
@@ -90,7 +112,7 @@ const Note = ({item,setCurrentId}) => {
           <div className='icon_container note_update' onClick={()=>setCurrentId(item._id)}>
             <FiEdit/>
           </div>
-          <div className='icon_container note_delete' onClick={()=>dispatch(deleteNote(item._id))}>
+          <div className='icon_container note_delete' onClick={deleteTodoHandler}>
             <BsTrash3Fill/>
           </div>
         </div>

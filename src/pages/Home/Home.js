@@ -68,7 +68,7 @@ const Home = () => {
     if(currentId){
       dispatch(updateNote(currentId,inputText));
     }else{
-      dispatch(createNote(inputText));
+      dispatch(createNote({...inputText,message:"created"}));
     }
     handleClearNote();
   }
@@ -104,14 +104,6 @@ const Home = () => {
                 className="form_input" 
                 placeholder="Text" 
               />
-              {/* <input 
-                type="email" 
-                value={inputText.email} 
-                name="email" 
-                onChange={changeHandeler} 
-                className="form_input" 
-                placeholder="Enter Assignee Email" 
-              /> */}
               <DatePicker
                 selected={selectedDate}
                 name="date"
@@ -121,23 +113,6 @@ const Home = () => {
               />
               <button className="form_add_more" onClick={addMoreHandler}>Add more</button>
             </div>
-            {/* <div className='home_form_top'>
-              <input 
-                type="number" 
-                value={inputText.phone} 
-                name="phone" 
-                onChange={changeHandeler} 
-                className="form_input" 
-                placeholder="Enter Phone no." 
-              />
-              <DatePicker
-                selected={selectedDate}
-                name="date"
-                onChange={handleDateChange}
-                placeholderText="Select date"
-                dateFormat="dd/MM/yyyy"
-              />
-            </div> */}
             {addMore && (
               <textarea 
                 type="text" 

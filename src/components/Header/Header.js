@@ -15,7 +15,7 @@ import {
 // Declaring a functional component named 'Header'
 const Header = () => {
     // Initializing state variables using the 'useState' hook
-    const [theme, setTheme] = useState(localStorage.getItem("theme") === "dark");
+    const [theme, setTheme] = useState(localStorage.getItem("theme") === "dark" || !localStorage.getItem("theme"));
     const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
 
     // Initializing constants using the 'useNavigate', 'useLocation', and 'useDispatch' hooks
@@ -100,8 +100,8 @@ const Header = () => {
             >
                 <div className="header_container">
                     <div className="header_left">
-                        <Link to="/">
-                            <h3 className="header_brand">Momentum</h3>
+                        <Link to="#">
+                            <h3 className="header_brand">MoonShine</h3>
                         </Link>
                     </div>
                     <div className="header_right">
@@ -112,15 +112,29 @@ const Header = () => {
                                 <PopoverNotificationCenter
                                     onNotificationClick={handleNotificationClick}
                                     listItem={(notification) => {
-                                        return (
-                                            <div
-                                                className='notification_container'
-                                                style={{ boxShadow: theme ? "0px 5px 10px rgba(236, 109, 109, 0.4)" : "0px 5px 10px rgba(0.1,0.5,0.5,0.1)" }}
-                                            >
-                                                <h3 style={{ color: theme ? "#fff" : "#000" }}>{notification.payload.title}</h3>
-                                                <p style={{ color: theme ? "#fff" : "#000" }}>{notification.payload.description}</p>
-                                            </div>
-                                        );
+                                        if(notification.payload.message === "created"){
+                                            return (
+                                                <div
+                                                    className='notification_container'
+                                                    style={{ boxShadow: theme ? "0px 5px 10px rgba(236, 109, 109, 0.4)" : "0px 5px 10px rgba(0.1,0.5,0.5,0.1)" }}
+                                                >
+                                                    <span style={{ color: theme ? "#fff" : "#000" }}>{`${notification.payload.message} Todo`}</span>
+                                                    <h3 style={{ color: theme ? "#fff" : "#000" }}>{notification.payload.title}</h3>
+                                                    <p style={{ color: theme ? "#fff" : "#000" }}>{notification.payload.description}</p>
+                                                </div>
+                                            );
+                                        }else if(notification.payload.message === "deleted"){
+                                            return (
+                                                <div
+                                                    className='notification_container'
+                                                    style={{ boxShadow: theme ? "0px 5px 10px rgba(236, 109, 109, 0.4)" : "0px 5px 10px rgba(0.1,0.5,0.5,0.1)" }}
+                                                >
+                                                    <span style={{ color: theme ? "#fff" : "#000" }}>{`${notification.payload.message} Todo`}</span>
+                                                    <h3 style={{ color: theme ? "#fff" : "#000" }}>{notification.payload.title}</h3>
+                                                    <p style={{ color: theme ? "#fff" : "#000" }}>{notification.payload.description}</p>
+                                                </div>
+                                            );
+                                        }
                                     }}
                                     colorScheme={theme ? 'dark' : 'light'}
                                 >
