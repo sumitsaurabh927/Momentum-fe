@@ -62,3 +62,14 @@
     margin: 1rem 1rem;
     border-radius: 8px;
 }
+.note_form_button{
+    padding: 7px;
+    border: none;
+    color: white;
+    background-color: blueviolet;
+    font-weight: 700;
+    border-radius: 10px;
+    font-size: small;
+    cursor: pointer;
+    margin: 0rem .7rem;
+}

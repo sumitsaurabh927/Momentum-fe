@@ -39,3 +39,21 @@ export const deleteNote= (id)=> async (dispatch)=>{
         console.log("deleteNote error",error);
     }
 }
+
+export const sendSmsNotification = (note) => async (dispatch) => {
+    try {
+        const response = await api.sendSms(note);
+        console.log("sms notification",response)
+    } catch (error) {
+        console.log("sendSms error",error);
+    }
+}
+
+export const sendEmailNotification = (note) => async (dispatch) => {
+    try {
+        const response = await api.sendEmail(note);
+        console.log("email notification",response);
+    } catch (error) {
+        console.log("sendEmail error",error);
+    }
+}

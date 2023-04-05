@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import "./note.css"
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
-import { deleteNote } from '../../actions/notes';
+import { deleteNote, sendEmailNotification, sendSmsNotification } from '../../actions/notes';
 import {MdOutlineEmail} from "react-icons/md";
 import {BsTrash3Fill} from "react-icons/bs"
 import {FiEdit} from "react-icons/fi";
@@ -10,6 +10,8 @@ import {MdSms} from "react-icons/md";
 
 const Note = ({item,setCurrentId}) => {
   const [isDone,setIsDone]=useState(false);
+  const [email,setEmail]=useState("");
+  const [phone,setPhone]=useState("")
   const [isEmail,setIsEmail]=useState(false);
   const [isSms,setIsSms]=useState(false);
   const dispatch = useDispatch();
@@ -32,6 +34,38 @@ const Note = ({item,setCurrentId}) => {
 
   const emailHandler = () => {
     setIsEmail((prev)=>!prev);
+  }
+
+  const handleSubmitEmail = async (e) => {
+    e.preventDefault();
+    const emailNote = {
+      title: item.title,
+      description: item.description,
+      email: email,
+      noteId: item._id
+    };
+    try {
+      dispatch(sendEmailNotification(emailNote));
+    } catch (error) {
+      console.log("handleSubmitEmail error",error)
+    }
+    setEmail("");
+  }
+
+  const handleSubmitPhone = async (e) => {
+    e.preventDefault();
+    const smsNote = {
+      title: item.title,
+      description: item.description,
+      phone: phone,
+      noteId: item._id
+    }
+    try {
+      dispatch(sendSmsNotification(smsNote));
+    } catch (error) {
+      console.log("handleSubmitPhone error",error)
+    }
+    setPhone("")
   }
 
   return (
@@ -64,18 +98,28 @@ const Note = ({item,setCurrentId}) => {
       <div className='note_input_container'>
         <p className={isDone ? "note_description done" : "note_description"}>{item.description}</p>
         {isEmail && (
-          <input
-            className='input_box'
-            type="text"
-            placeholder='Enter Assignee email'
-          />
+          <form className='note_form_container' onSubmit={handleSubmitEmail}>
+            <input
+              className='input_box'
+              type="email"
+              value={email}
+              onChange={(e)=>setEmail(e.target.value)}
+              placeholder='Enter Assignee email'
+            />
+            <button className='note_form_button'>send Email</button>
+          </form>
         )}
         {isSms && (
-          <input
-            className='input_box'
-            type="number"
-            placeholder='Enter Number'
-          />
+          <form className='note_form_container' onSubmit={handleSubmitPhone}>
+            <input
+              className='input_box'
+              value={phone}
+              onChange={(e)=>setPhone(e.target.value)}
+              type="number"
+              placeholder='Enter Number'
+            />
+            <button className='note_form_button'>Send sms</button>
+          </form>
         )}
         <span>created on {moment(item.createdAt).fromNow()}</span>
       </div>
