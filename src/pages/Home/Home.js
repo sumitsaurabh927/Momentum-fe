@@ -116,8 +116,8 @@ const addDetailsHandler = () => {
           <h1>{greeting} ,</h1>
           <h3>{user?.result?.name}</h3>
         </div>
-        <div className="home_container_top" onClick={addDetailsHandler}>
-          <div className='home_container_heading'>
+        <div className="home_container_top">
+          <div className='home_container_heading' onClick={addDetailsHandler}>
             <div className='add_icon' >
               <TiPlus/>
             </div>
@@ -126,22 +126,26 @@ const addDetailsHandler = () => {
           {showForm && (
             <form className="home_form_container" onSubmit={handleSubmitNote}>
               <div className='home_form_top'>
-                <input 
-                  type="text" 
-                  value={inputText.title} 
-                  name="title" 
-                  onChange={changeHandeler} 
-                  className="form_input" 
-                  placeholder="Text" 
-                />
-                <DatePicker
-                  selected={selectedDate}
-                  name="date"
-                  onChange={handleDateChange}
-                  placeholderText="Select date"
-                  dateFormat="dd/MM/yyyy"
-                />
-                <button className="form_add_more" onClick={addMoreHandler}>Add more</button>
+                <div className='home_input_container'>
+                  <input 
+                    type="text" 
+                    value={inputText.title} 
+                    name="title" 
+                    onChange={changeHandeler} 
+                    className="form_input" 
+                    placeholder="Text" 
+                  />
+                  <DatePicker
+                    selected={selectedDate}
+                    name="date"
+                    onChange={handleDateChange}
+                    placeholderText="Select date"
+                    className='form_date_picker'
+                    dateFormat="dd/MM/yyyy"
+                  />
+                  <button className="form_add_more" onClick={addMoreHandler}>Add more</button>
+                  <button className="form_add_more">Create</button>
+                </div>
               </div>
               {addMore && (
                 <textarea 
@@ -153,13 +157,12 @@ const addDetailsHandler = () => {
                   placeholder="Description"
                 />
               )}
-              <button className="form_button">Create</button>
             </form>
           )}
         </div>
         <div className="home_container_bottom">
-          {Object.entries(notesByDate).length > 0 ? (
-            Object.entries(notesByDate).map(([dateStr, notes]) => {
+          {Object.entries(notesByDate).length > 0 ? (          
+            Object.entries(notesByDate).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).map(([dateStr, notes]) => {
               // Filter notes by user ID
               const userNotes = notes.filter((note) => note.creator === user?.result?._id);
               return userNotes.length > 0 ? (
