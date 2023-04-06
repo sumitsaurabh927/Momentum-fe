@@ -134,7 +134,10 @@ const Note = ({ item, setCurrentId, setShowForm }) => {
         </div>
         <div className="note_button_container">
           {item.description.length > 0 && (
-            <div className="icon_container" onClick={descriptionHandler}>
+            <div
+              className="icon_container note_description"
+              onClick={descriptionHandler}
+            >
               <BsReverseLayoutTextWindowReverse />
             </div>
           )}

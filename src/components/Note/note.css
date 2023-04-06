@@ -39,7 +39,8 @@
 
 .note_update:hover,
 .note_sms:hover,
-.note_email:hover {
+.note_email:hover,
+.note_description:hover {
   color: blueviolet;
 }
 .note_delete:hover {
