@@ -1,73 +1,83 @@
-import React, { useState, useEffect } from 'react'
-import "./note.css"
-import { useDispatch } from 'react-redux';
-import { deleteNote, deleteTodoInApp, sendEmailNotification, sendSmsNotification } from '../../actions/notes';
-import {MdOutlineEmail} from "react-icons/md";
-import {BsTrash3Fill} from "react-icons/bs"
-import {FiEdit} from "react-icons/fi";
-import {MdSms} from "react-icons/md";
-import {BsReverseLayoutTextWindowReverse} from "react-icons/bs";
+import React, { useState, useEffect } from "react";
+import "./note.css";
+import { useDispatch } from "react-redux";
+import {
+  deleteNote,
+  deleteTodoInApp,
+  sendEmailNotification,
+  sendSmsNotification,
+} from "../../actions/notes";
+import { MdOutlineEmail } from "react-icons/md";
+import { BsTrash3Fill } from "react-icons/bs";
+import { FiEdit } from "react-icons/fi";
+import { MdSms } from "react-icons/md";
+import { BsReverseLayoutTextWindowReverse } from "react-icons/bs";
 
-
-const Note = ({item,setCurrentId}) => {
-  const [isDone,setIsDone]=useState(() => {
+const Note = ({ item, setCurrentId, setShowForm }) => {
+  const [isDone, setIsDone] = useState(() => {
     const storedIsDone = localStorage.getItem(item._id);
     return storedIsDone !== null ? JSON.parse(storedIsDone) : false;
   });
-  const [email,setEmail]=useState("");
-  const [phone,setPhone]=useState("")
-  const [isEmail,setIsEmail]=useState(false);
-  const [isSms,setIsSms]=useState(false);
-  const [showDescription,setShowDescription]=useState(false);
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [isEmail, setIsEmail] = useState(false);
+  const [isSms, setIsSms] = useState(false);
+  const [showDescription, setShowDescription] = useState(false);
 
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
   const dispatch = useDispatch();
 
-  useEffect(()=>{
+  useEffect(() => {
     const storedIsDone = localStorage.getItem(item._id);
     if (storedIsDone !== null) {
       setIsDone(JSON.parse(storedIsDone));
     }
-  },[item._id])
+  }, [item._id]);
 
-  useEffect(()=>{
-    setUser(JSON.parse(localStorage.getItem("profile")))
-  },[])
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem("profile")));
+  }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     localStorage.setItem(item._id, JSON.stringify(isDone));
-  },[isDone, item._id])
+  }, [isDone, item._id]);
 
   const donehandler = () => {
-    setIsDone((prev)=>!prev);
-  }
+    setIsDone((prev) => !prev);
+  };
 
   const deleteTodoHandler = async () => {
-    const deleteInAppNote={
+    const deleteInAppNote = {
       title: item.title,
       description: item.description,
       userId: user?.result?._id,
-      message: "deleted"
-    }
+      message: "deleted",
+    };
     try {
       dispatch(deleteTodoInApp(deleteInAppNote));
-      dispatch(deleteNote(item._id))
+      dispatch(deleteNote(item._id));
     } catch (error) {
-      console.log("deleteTodoHandler error",error);
+      console.log("deleteTodoHandler error", error);
     }
-  }
+  };
 
   const smsHandler = () => {
-    setIsSms((prev)=>!prev);
-  }
+    setIsSms((prev) => !prev);
+  };
 
   const emailHandler = () => {
-    setIsEmail((prev)=>!prev);
-  }
+    setIsEmail((prev) => !prev);
+  };
 
   const descriptionHandler = () => {
-    setShowDescription((prev)=>!prev);
-  }
+    setShowDescription((prev) => !prev);
+  };
+
+  const editTodoHandler = () => {
+    setCurrentId(item._id);
+    setShowForm(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   const handleSubmitEmail = async (e) => {
     e.preventDefault();
@@ -75,15 +85,15 @@ const Note = ({item,setCurrentId}) => {
       title: item.title,
       description: item.description,
       email: email,
-      noteId: item._id
+      noteId: item._id,
     };
     try {
       dispatch(sendEmailNotification(emailNote));
     } catch (error) {
-      console.log("handleSubmitEmail error",error)
+      console.log("handleSubmitEmail error", error);
     }
     setEmail("");
-  }
+  };
 
   const handleSubmitPhone = async (e) => {
     e.preventDefault();
@@ -91,81 +101,93 @@ const Note = ({item,setCurrentId}) => {
       title: item.title,
       description: item.description,
       phone: phone,
-      noteId: item._id
-    }
+      noteId: item._id,
+    };
     try {
       dispatch(sendSmsNotification(smsNote));
     } catch (error) {
-      console.log("handleSubmitPhone error",error)
+      console.log("handleSubmitPhone error", error);
     }
-    setPhone("")
-  }
+    setPhone("");
+  };
 
   return (
     <div className="note">
-      <div className='note_container'>
-        <div className='note_text_container'>
+      <div className="note_container">
+        <div className="note_text_container">
           <input
             type="checkbox"
             classname="note_checkbox"
             checked={isDone}
             onChange={donehandler}
-            style={{ height: "20px", width: "20px", border: "2px solid purple" ,borderRadius:"50%", cursor:"pointer"}}
+            style={{
+              height: "20px",
+              width: "20px",
+              border: "2px solid purple",
+              borderRadius: "50%",
+              cursor: "pointer",
+            }}
           />
-          <h2 className={isDone ? "note_title done" : "note_title"}>{item.title}</h2>
+          <h2 className={isDone ? "note_title done" : "note_title"}>
+            {item.title}
+          </h2>
         </div>
         <div className="note_button_container">
-          {item.description.length>0 && (
-            <div className='icon_container' onClick={descriptionHandler}>
-              <BsReverseLayoutTextWindowReverse/>
+          {item.description.length > 0 && (
+            <div className="icon_container" onClick={descriptionHandler}>
+              <BsReverseLayoutTextWindowReverse />
             </div>
           )}
-          <div className='icon_container note_email' onClick={emailHandler}>
-            <MdOutlineEmail/>
+          <div className="icon_container note_email" onClick={emailHandler}>
+            <MdOutlineEmail />
           </div>
-          <div className='icon_container note_sms' onClick={smsHandler}>
-            <MdSms/>
+          <div className="icon_container note_sms" onClick={smsHandler}>
+            <MdSms />
           </div>
-          <div className='icon_container note_update' onClick={()=>setCurrentId(item._id)}>
-            <FiEdit/>
+          <div className="icon_container note_update" onClick={editTodoHandler}>
+            <FiEdit />
           </div>
-          <div className='icon_container note_delete' onClick={deleteTodoHandler}>
-            <BsTrash3Fill/>
+          <div
+            className="icon_container note_delete"
+            onClick={deleteTodoHandler}
+          >
+            <BsTrash3Fill />
           </div>
         </div>
       </div>
-      <div className='note_input_container'>
+      <div className="note_input_container">
         {showDescription && (
-          <p className={isDone ? "note_description done" : "note_description"}>{item.description}</p>
+          <p className={isDone ? "note_description done" : "note_description"}>
+            {item.description}
+          </p>
         )}
         {isEmail && (
-          <form className='note_form_container' onSubmit={handleSubmitEmail}>
+          <form className="note_form_container" onSubmit={handleSubmitEmail}>
             <input
-              className='input_box'
+              className="input_box"
               type="email"
               value={email}
-              onChange={(e)=>setEmail(e.target.value)}
-              placeholder='Enter Assignee email'
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter Assignee email"
             />
-            <button className='note_form_button'>send Email</button>
+            <button className="note_form_button">send Email</button>
           </form>
         )}
         {isSms && (
-          <form className='note_form_container' onSubmit={handleSubmitPhone}>
+          <form className="note_form_container" onSubmit={handleSubmitPhone}>
             <input
-              className='input_box'
+              className="input_box"
               value={phone}
-              onChange={(e)=>setPhone(e.target.value)}
+              onChange={(e) => setPhone(e.target.value)}
               type="number"
-              placeholder='Enter Number'
+              placeholder="Enter Number"
             />
-            <button className='note_form_button'>Send sms</button>
+            <button className="note_form_button">Send sms</button>
           </form>
         )}
       </div>
     </div>
+  );
+};
 
-  )
-}
-
-export default Note
+export default Note;

@@ -184,6 +184,7 @@ const Home = () => {
                         key={note._id}
                         item={note}
                         setCurrentId={setCurrentId}
+                        setShowForm={setShowForm}
                       />
                     ))}
                   </div>
