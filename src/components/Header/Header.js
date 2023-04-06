@@ -12,6 +12,7 @@ import {
 } from "@novu/notification-center";
 import { BsFillMoonFill, BsFillSunFill } from "react-icons/bs";
 import { GrLogout } from "react-icons/gr";
+import { TfiGallery } from "react-icons/tfi";
 
 // Declaring a functional component named 'Header'
 const Header = () => {
@@ -118,6 +119,17 @@ const Header = () => {
           <div className="header_right">
             {user ? (
               <>
+                <button
+                  onClick={() => navigate("/gallery")}
+                  className="header_theme_button"
+                  style={{
+                    backgroundColor: theme ? "#fff" : "#000",
+                    color: theme ? "#000" : "#fff",
+                    margin: "0rem 1rem",
+                  }}
+                >
+                  <TfiGallery />
+                </button>
                 <button
                   onClick={themeHandeler}
                   className="header_theme_button"
