@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Quote from "../../components/Quote/Quote";
 import "./landscape.css";
 
@@ -18,6 +18,7 @@ function renderGalleryItem(randomNumber) {
 }
 
 const Landscape = () => {
+  const [refresh, setRefresh] = useState(false);
   useEffect(() => {
     let randomImageIndex = Math.floor(Math.random() * numImagesAvailable);
     renderGalleryItem(randomImageIndex);
@@ -28,9 +29,22 @@ const Landscape = () => {
     };
   }, []);
 
+  const refreshImage = () => {
+    let randomImageIndex = Math.floor(Math.random() * numImagesAvailable);
+    renderGalleryItem(randomImageIndex);
+    setRefresh((prev) => !prev);
+  };
+
   return (
     <>
-      <Quote />
+      <Quote refresh={refresh} />
+      <button
+        className="refresh_button"
+        style={{ position: "absolute", top: 1, right: "15rem" }}
+        onClick={refreshImage}
+      >
+        Refresh
+      </button>
     </>
   );
 };

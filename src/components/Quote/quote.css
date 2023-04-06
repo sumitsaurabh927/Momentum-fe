@@ -7,7 +7,7 @@
 }
 
 .quote {
-  font-size: 36px;
+  font-size: 25px;
   font-weight: bold;
   text-align: center;
   margin-bottom: 20px;
@@ -17,7 +17,7 @@
 }
 
 .author {
-  font-size: 24px;
+  font-size: 20px;
   font-style: italic;
   text-align: center;
   color: white;
@@ -26,12 +26,12 @@
 
 .qote_button {
   border: none;
-  margin: 2.5rem 0rem;
+  margin: 1.7rem 1rem;
   background-color: blueviolet;
-  padding: 15px 20px;
+  padding: 10px 7px;
   color: white;
   cursor: pointer;
-  width: 25%;
+  width: 200px;
   font-size: larger;
   font-weight: 500;
   border-radius: 20px;
@@ -40,4 +40,7 @@
 .qote_button:hover {
   background-color: rgb(176, 130, 220);
   transition: all;
+}
+.greeting {
+  font-size: 5rem;
 }

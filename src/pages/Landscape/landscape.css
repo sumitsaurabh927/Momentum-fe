@@ -6,3 +6,20 @@ body {
   background-position: center center;
   min-height: 100vh;
 }
+.refresh_button {
+  border: none;
+  margin: 1.7rem 1rem;
+  background-color: blueviolet;
+  padding: 10px 7px;
+  color: white;
+  cursor: pointer;
+  width: 200px;
+  font-size: larger;
+  font-weight: 500;
+  border-radius: 20px;
+  transition: background-color 0.5s ease-in-out;
+}
+.refresh_button:hover {
+  background-color: rgb(176, 130, 220);
+  transition: all;
+}
