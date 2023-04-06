@@ -11,6 +11,7 @@ import {
   NotificationBell,
 } from "@novu/notification-center";
 import { BsFillMoonFill, BsFillSunFill } from "react-icons/bs";
+import { GrLogout } from "react-icons/gr";
 
 // Declaring a functional component named 'Header'
 const Header = () => {
@@ -123,9 +124,18 @@ const Header = () => {
                   style={{
                     backgroundColor: theme ? "#fff" : "#000",
                     color: theme ? "#000" : "#fff",
+                    margin: "0rem 1rem",
                   }}
                 >
-                  {theme ? "Light" : "Dark"}
+                  {theme ? (
+                    <div className="header_theme_button">
+                      <BsFillSunFill />
+                    </div>
+                  ) : (
+                    <div className="header_theme_button">
+                      <BsFillMoonFill />
+                    </div>
+                  )}
                 </button>
                 <PopoverNotificationCenter
                   onNotificationClick={handleNotificationClick}
@@ -180,8 +190,12 @@ const Header = () => {
                     <NotificationBell unseenCount={unseenCount} />
                   )}
                 </PopoverNotificationCenter>
-                <button className="header_button" onClick={handleLogout}>
-                  Logout
+                <button
+                  className="header_theme_button"
+                  style={{ margin: "0rem 1rem" }}
+                  onClick={handleLogout}
+                >
+                  <GrLogout />
                 </button>
               </>
             ) : (
