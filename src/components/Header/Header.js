@@ -123,8 +123,8 @@ const Header = () => {
                   onClick={() => navigate("/gallery")}
                   className="header_theme_button"
                   style={{
-                    backgroundColor: theme ? "#fff" : "#000",
-                    color: theme ? "#000" : "#fff",
+                    backgroundColor: theme ? "#fff" : "#efefef",
+                    color: theme ? "#000" : "#000",
                     margin: "0rem 1rem",
                   }}
                 >
@@ -134,8 +134,8 @@ const Header = () => {
                   onClick={themeHandeler}
                   className="header_theme_button"
                   style={{
-                    backgroundColor: theme ? "#fff" : "#000",
-                    color: theme ? "#000" : "#fff",
+                    backgroundColor: theme ? "#fff" : "#efefef",
+                    color: theme ? "#000" : "#000",
                     margin: "0rem 1rem",
                   }}
                 >
