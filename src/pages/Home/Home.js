@@ -18,6 +18,7 @@ const Home = () => {
   const [currentId, setCurrentId] = useState(null);
   const [addMore, setAddMore] = useState(false);
   const [showForm, setShowForm] = useState(false);
+  const [editing, setEditing] = useState(false);
 
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [notesByDate, setNotesByDate] = useState({});
@@ -150,7 +151,9 @@ const Home = () => {
                   <button className="form_add_more" onClick={addMoreHandler}>
                     Add more
                   </button>
-                  <button className="form_add_more">Create</button>
+                  <button className="form_add_more">
+                    {currentId ? "Editing" : "Create"}
+                  </button>
                 </div>
               </div>
               {addMore && (
