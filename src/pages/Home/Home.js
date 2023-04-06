@@ -18,6 +18,7 @@ const Home = () => {
   const [currentId, setCurrentId] = useState(null);
   const [addMore, setAddMore] = useState(false);
   const [showForm, setShowForm] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [notesByDate, setNotesByDate] = useState({});
@@ -87,6 +88,7 @@ const Home = () => {
     inputText.date = selectedDate.toISOString();
     if (currentId) {
       dispatch(updateNote(currentId, inputText));
+      setIsEditing(false);
     } else {
       dispatch(createNote({ ...inputText, message: "created" }));
     }
@@ -151,7 +153,7 @@ const Home = () => {
                     Add more
                   </button>
                   <button className="form_add_more">
-                    {currentId ? "Editing" : "Create"}
+                    {isEditing ? "Update" : "Create"}
                   </button>
                 </div>
               </div>
@@ -187,6 +189,8 @@ const Home = () => {
                         item={note}
                         setCurrentId={setCurrentId}
                         setShowForm={setShowForm}
+                        setIsEditing={setIsEditing}
+                        setSelectedDate={setSelectedDate}
                       />
                     ))}
                   </div>

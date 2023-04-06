@@ -13,7 +13,13 @@ import { FiEdit } from "react-icons/fi";
 import { MdSms } from "react-icons/md";
 import { BsReverseLayoutTextWindowReverse } from "react-icons/bs";
 
-const Note = ({ item, setCurrentId, setShowForm }) => {
+const Note = ({
+  item,
+  setCurrentId,
+  setShowForm,
+  setIsEditing,
+  setSelectedDate,
+}) => {
   const [isDone, setIsDone] = useState(() => {
     const storedIsDone = localStorage.getItem(item._id);
     return storedIsDone !== null ? JSON.parse(storedIsDone) : false;
@@ -75,7 +81,9 @@ const Note = ({ item, setCurrentId, setShowForm }) => {
 
   const editTodoHandler = () => {
     setCurrentId(item._id);
+    setSelectedDate(new Date(item.date));
     setShowForm(true);
+    setIsEditing(true);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
