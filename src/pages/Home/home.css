@@ -29,7 +29,7 @@
   border-bottom-right-radius: 0rem;
 }
 .note_row_title:hover {
-  background-color: #2e2e3b;
+  box-shadow: 0px 3px 6px rgba(105, 83, 135, 0.396) !important;
 }
 .note_row {
   display: flex;
@@ -48,7 +48,7 @@
   cursor: pointer;
 }
 .home_container_top:hover {
-  background-color: #323243;
+  box-shadow: 0px 3px 6px rgba(105, 83, 135, 0.396) !important;
 }
 .home_form_container {
   display: flex;

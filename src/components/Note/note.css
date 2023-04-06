@@ -3,6 +3,10 @@
   background-color: #21212d;
   width: 63%;
 }
+.note:hover {
+  opacity: 85% !important;
+  box-shadow: 0px 3px 6px rgba(105, 83, 135, 0.396) !important;
+}
 .note_container {
   display: flex;
   justify-content: space-between;

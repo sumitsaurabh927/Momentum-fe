@@ -1,10 +1,15 @@
-import React from 'react';
-import "./Loader.css"
+import React from "react";
+import "./Loader.css";
 
 const Loader = () => {
   return (
-    <div className="loader">
-      <div className="loader_inner"></div>
+    <div className="loader_parent">
+      <div class="lds-ellipsis">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
     </div>
   );
 };

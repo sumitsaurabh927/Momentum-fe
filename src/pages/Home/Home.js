@@ -20,6 +20,10 @@ const Home = () => {
   const [showForm, setShowForm] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
 
+  const [theme, setTheme] = useState(
+    localStorage.getItem("theme") === "dark" || !localStorage.getItem("theme")
+  );
+
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [notesByDate, setNotesByDate] = useState({});
 
@@ -30,6 +34,25 @@ const Home = () => {
   const updatedNote = useSelector((state) =>
     currentId ? state.notes.find((c) => c._id === currentId) : null
   );
+
+  useEffect(() => {
+    if (theme) {
+      document.body.classList.add("dark-mode");
+    } else {
+      document.body.classList.remove("dark-mode");
+    }
+  }, [theme]);
+
+  const themeHandeler = () => {
+    const newTheme = !theme;
+    // Updating the theme state and storing it in the local storage
+
+    setTheme(newTheme);
+    localStorage.setItem("theme", newTheme ? "dark" : "light");
+    // Toggling the class of the 'body' element to update the theme of the application
+
+    document.body.classList.toggle("dark-mode");
+  };
 
   const currentHour = new Date().getHours();
 
@@ -116,13 +139,24 @@ const Home = () => {
 
   return (
     <main className="home">
-      <Header />
+      <Header theme={theme} themeHandeler={themeHandeler} />
       <div className="home_container">
         <div className="home_top_heading">
-          <h1>{greeting} ,</h1>
+          <h1>
+            {greeting}
+            <img
+              style={{ height: "3rem", widht: "auto" }}
+              src="https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif"
+              alt="waving-hand-emoji"
+            />
+          </h1>
           <h3>{user?.result?.name}</h3>
         </div>
-        <div className="home_container_top">
+
+        <div
+          className="home_container_top"
+          style={{ backgroundColor: theme ? "#282834" : "#ececec" }}
+        >
           <div className="home_container_heading" onClick={addDetailsHandler}>
             <div className="add_icon">
               <TiPlus />
@@ -180,7 +214,10 @@ const Home = () => {
               return userNotes.length > 0 ? (
                 <div key={dateStr}>
                   <div className="note_row">
-                    <h2 className="note_row_title">
+                    <h2
+                      style={{ backgroundColor: theme ? "#282834" : "#e6e6e6" }}
+                      className="note_row_title"
+                    >
                       {new Date(dateStr).toLocaleDateString()}
                     </h2>
                     {userNotes.map((note) => (
@@ -191,6 +228,7 @@ const Home = () => {
                         setShowForm={setShowForm}
                         setIsEditing={setIsEditing}
                         setSelectedDate={setSelectedDate}
+                        theme={theme}
                       />
                     ))}
                   </div>

@@ -47,7 +47,16 @@ const Quote = ({ refresh }) => {
   return (
     <div className="container">
       <div className="greeting">{greeting}</div>
-      <div id="time" className="time" style={{ fontSize: "7rem" }}></div>
+      <div
+        id="time"
+        className="time"
+        style={{
+          fontSize: "7rem",
+          fontWeight: "500",
+          margin: "2rem 0rem",
+          color: "white",
+        }}
+      ></div>
       <div className="quote">{quote.text}</div>
       <div className="author">- {quote.author || "Unknown"}</div>
       <button

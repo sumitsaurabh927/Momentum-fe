@@ -12,6 +12,7 @@ import { BsTrash3Fill } from "react-icons/bs";
 import { FiEdit } from "react-icons/fi";
 import { MdSms } from "react-icons/md";
 import { BsReverseLayoutTextWindowReverse } from "react-icons/bs";
+import { hover } from "@testing-library/user-event/dist/hover";
 
 const Note = ({
   item,
@@ -19,6 +20,7 @@ const Note = ({
   setShowForm,
   setIsEditing,
   setSelectedDate,
+  theme,
 }) => {
   const [isDone, setIsDone] = useState(() => {
     const storedIsDone = localStorage.getItem(item._id);
@@ -120,7 +122,12 @@ const Note = ({
   };
 
   return (
-    <div className="note">
+    <div
+      className="note"
+      style={{
+        backgroundColor: theme ? "#1f1f2b" : "#f2f2f2",
+      }}
+    >
       <div className="note_container">
         <div className="note_text_container">
           <input
@@ -129,10 +136,6 @@ const Note = ({
             checked={isDone}
             onChange={donehandler}
             style={{
-              height: "20px",
-              width: "20px",
-              border: "2px solid purple",
-              borderRadius: "50%",
               cursor: "pointer",
             }}
           />

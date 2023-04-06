@@ -15,11 +15,7 @@ import { GrLogout } from "react-icons/gr";
 import { TfiGallery } from "react-icons/tfi";
 
 // Declaring a functional component named 'Header'
-const Header = () => {
-  // Initializing state variables using the 'useState' hook
-  const [theme, setTheme] = useState(
-    localStorage.getItem("theme") === "dark" || !localStorage.getItem("theme")
-  );
+const Header = ({ theme, themeHandeler }) => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
 
   // Initializing constants using the 'useNavigate', 'useLocation', and 'useDispatch' hooks
@@ -63,37 +59,12 @@ const Header = () => {
   const handleLogin = () => {
     navigate("/");
   };
-  // Defining a function to toggle the theme of the application
-
-  const themeHandeler = () => {
-    const newTheme = !theme;
-    // Updating the theme state and storing it in the local storage
-
-    setTheme(newTheme);
-    localStorage.setItem("theme", newTheme ? "dark" : "light");
-    // Toggling the class of the 'body' element to update the theme of the application
-
-    document.body.classList.toggle("dark-mode");
-  };
-
-  // Defining a function to handle notification clicks
 
   const handleNotificationClick = (message) => {
     if (message?.cta?.data?.url) {
       window.location.href = message.cta.data.url;
     }
   };
-
-  // Defining a side effect to update the theme of the application
-  useEffect(() => {
-    if (theme) {
-      document.body.classList.add("dark-mode");
-    } else {
-      document.body.classList.remove("dark-mode");
-    }
-  }, [theme]);
-
-  // Rendering the header component with necessary components from the 'notification-center' library
 
   return (
     <header className="header">
@@ -108,10 +79,7 @@ const Header = () => {
         <div className="header_container">
           <div className="header_left">
             <Link to="#">
-              <h3
-                className="header_brand"
-                style={{ color: theme ? "#964bdb" : "black" }}
-              >
+              <h3 className="header_brand" style={{ color: "#964bdb" }}>
                 MoonShine
               </h3>
             </Link>
