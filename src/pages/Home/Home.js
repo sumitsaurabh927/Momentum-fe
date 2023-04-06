@@ -18,7 +18,6 @@ const Home = () => {
   const [currentId, setCurrentId] = useState(null);
   const [addMore, setAddMore] = useState(false);
   const [showForm, setShowForm] = useState(false);
-  const [editing, setEditing] = useState(false);
 
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [notesByDate, setNotesByDate] = useState({});
