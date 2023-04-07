@@ -109,6 +109,6 @@ Novu, Node, Express, MongoDB, Mongoose, BCrypt, JSONWebToken and more
 
 
 ## More info:
-- This repo only contains the client-side code and relies on the backed code [here](https://github.com/sumitsaurabh927/Momentum) to work correctly. Make sure to check that out as well.
+- This repo only contains the client-side code and relies on the back-end code [here](https://github.com/sumitsaurabh927/Momentum) to work correctly. Make sure to check that out as well.
 
 - Also, I've written a detailed article about Moonshine and I'll be really happy if you'd [give it a heart here!](inserLlink) 😍
