@@ -4,6 +4,7 @@ import "./login.css";
 import { useDispatch } from "react-redux";
 import { signin } from "../../actions/auth";
 import Loader from "../../components/Loader/Loader";
+import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 
 const Login = () => {
   const [formValue, setFormValue] = useState({
@@ -12,6 +13,7 @@ const Login = () => {
   });
 
   const [isLoading, setIsLoading] = useState(false);
+  const [isText, setIsText] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -21,6 +23,10 @@ const Login = () => {
       ...formValue,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const showHandler = () => {
+    setIsText((prev) => !prev);
   };
 
   const handleFormSubmit = (e) => {
@@ -33,6 +39,9 @@ const Login = () => {
 
   return (
     <div className="auth_container">
+      <div className="auth_header">
+        <h2>moonShine</h2>
+      </div>
       <form onSubmit={handleFormSubmit} className="auth_form">
         <label for="email">Email</label>
         <input
@@ -46,7 +55,7 @@ const Login = () => {
         />
         <label for="password">Password</label>
         <input
-          type="password"
+          type={isText ? "text" : "password"}
           className="auth_input"
           id="password"
           value={formValue.password}
@@ -54,6 +63,11 @@ const Login = () => {
           onChange={handleChange}
           placeholder="Enter Your Password"
         />
+        {isLoading ? null : (
+          <div className="auth_icon" onClick={showHandler}>
+            {isText ? <AiFillEye /> : <AiFillEyeInvisible />}
+          </div>
+        )}
         <div className="auth_button_container">
           {isLoading ? (
             <Loader />
