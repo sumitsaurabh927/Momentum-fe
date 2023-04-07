@@ -66,3 +66,13 @@ export const deleteTodoInApp = (note) => async (dispatch) => {
     console.log("deleteTodoInApp error", error);
   }
 };
+
+export const toggleTodo = (id) => async (dispatch) => {
+  try {
+    const res = await api.updateNoteChecked(id);
+
+    dispatch({ type: "TOGGLE_DONE", payload: res.data });
+  } catch (error) {
+    console.log("Error while calling getAllTodos API ", error.message);
+  }
+};

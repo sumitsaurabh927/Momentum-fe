@@ -6,13 +6,13 @@ import {
   deleteTodoInApp,
   sendEmailNotification,
   sendSmsNotification,
+  toggleTodo,
 } from "../../actions/notes";
 import { MdOutlineEmail } from "react-icons/md";
 import { BsTrash3Fill } from "react-icons/bs";
 import { FiEdit } from "react-icons/fi";
 import { MdSms } from "react-icons/md";
 import { BsReverseLayoutTextWindowReverse } from "react-icons/bs";
-import { hover } from "@testing-library/user-event/dist/hover";
 
 const Note = ({
   item,
@@ -22,10 +22,6 @@ const Note = ({
   setSelectedDate,
   theme,
 }) => {
-  const [isDone, setIsDone] = useState(() => {
-    const storedIsDone = localStorage.getItem(item._id);
-    return storedIsDone !== null ? JSON.parse(storedIsDone) : false;
-  });
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [isEmail, setIsEmail] = useState(false);
@@ -36,22 +32,11 @@ const Note = ({
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const storedIsDone = localStorage.getItem(item._id);
-    if (storedIsDone !== null) {
-      setIsDone(JSON.parse(storedIsDone));
-    }
-  }, [item._id]);
-
-  useEffect(() => {
     setUser(JSON.parse(localStorage.getItem("profile")));
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem(item._id, JSON.stringify(isDone));
-  }, [isDone, item._id]);
-
-  const donehandler = () => {
-    setIsDone((prev) => !prev);
+  const donehandler = async (event) => {
+    dispatch(toggleTodo(item._id));
   };
 
   const deleteTodoHandler = async () => {
@@ -132,14 +117,14 @@ const Note = ({
         <div className="note_text_container">
           <input
             type="checkbox"
-            classname="note_checkbox"
-            checked={isDone}
+            className="note_checkbox"
+            checked={item.done}
             onChange={donehandler}
             style={{
               cursor: "pointer",
             }}
           />
-          <h2 className={isDone ? "note_title done" : "note_title"}>
+          <h2 className={item.done ? "note_title done" : "note_title"}>
             {item.title}
           </h2>
         </div>
@@ -171,7 +156,9 @@ const Note = ({
       </div>
       <div className="note_input_container">
         {showDescription && (
-          <p className={isDone ? "note_description done" : "note_description"}>
+          <p
+            className={item.done ? "note_description done" : "note_description"}
+          >
             {item.description}
           </p>
         )}
