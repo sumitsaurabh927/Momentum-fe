@@ -6,7 +6,7 @@ ___Moonshine___ was primarily made to replace two of the most frequently used ap
 ## Screenshots
 
 ![Screenshot_1](./assets/Screenshot%202023-04-06%20at%201.01.25%20PM.png)
-![Todo_light_mode_Screenshot](./assets/Screenshot%202023-04-07%20at%2011.30.40%20AM.png)
+![Todo_light_mode_with_Notifications center_Screenshot](./assets/Screenshot%202023-04-07%20at%2011.40.35%20AM.png)
 ![Todo_Add_Email_screenshot](./assets/Screenshot%202023-04-07%20at%2011.31.40%20AM.png)
 ![Update_todo_and_send_sms_reminder_screenshot](./assets/Screenshot%202023-04-07%20at%2011.34.46%20AM.png)
 
