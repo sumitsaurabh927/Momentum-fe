@@ -38,7 +38,7 @@
   transition: background-color 0.5s ease-in-out;
 }
 .qote_button:hover {
-  background-color: rgb(96, 215, 162);
+  opacity: 80%;
   transition: all;
 }
 .greeting {

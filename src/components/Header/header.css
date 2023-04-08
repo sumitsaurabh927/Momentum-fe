@@ -33,6 +33,9 @@
   width: 50px;
   font-size: large;
 }
+.header_theme_button:hover {
+  opacity: 80%;
+}
 .header_right {
   display: flex;
   align-items: center;

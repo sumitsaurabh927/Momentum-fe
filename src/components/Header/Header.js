@@ -12,7 +12,7 @@ import {
 } from "@novu/notification-center";
 import { BsFillMoonFill, BsFillSunFill } from "react-icons/bs";
 import { GrLogout } from "react-icons/gr";
-import { TfiGallery } from "react-icons/tfi";
+import { BsBlockquoteLeft } from "react-icons/bs";
 
 // Declaring a functional component named 'Header'
 const Header = ({ theme, themeHandeler }) => {
@@ -96,7 +96,7 @@ const Header = ({ theme, themeHandeler }) => {
                     margin: "0rem 1rem",
                   }}
                 >
-                  <TfiGallery />
+                  <BsBlockquoteLeft />
                 </button>
                 <button
                   onClick={themeHandeler}
