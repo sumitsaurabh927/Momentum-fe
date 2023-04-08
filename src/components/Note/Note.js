@@ -85,6 +85,16 @@ const Note = ({
 
   const handleSubmitEmail = async (e) => {
     e.preventDefault();
+    if (!email) {
+      return toast.error("email is required to send notification", {
+        icon: "👏",
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+        },
+      });
+    }
     const emailNote = {
       title: item.title,
       description: item.description,
@@ -101,6 +111,25 @@ const Note = ({
 
   const handleSubmitPhone = async (e) => {
     e.preventDefault();
+    if (!phone) {
+      return toast.error("Phone number is required", {
+        icon: "👏",
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+        },
+      });
+    } else if (phone.length < 10) {
+      return toast.error("Enter correct phone number", {
+        icon: "👏",
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+        },
+      });
+    }
     const smsNote = {
       title: item.title,
       description: item.description,

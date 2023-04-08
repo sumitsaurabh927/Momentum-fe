@@ -106,8 +106,15 @@ const Home = () => {
 
   const handleSubmitNote = (e) => {
     e.preventDefault();
-    if (!inputText.title) {
-      return; // do nothing if title or email is empty
+    if (!inputText.title && !inputText.date) {
+      return toast.error("Title and date are required!", {
+        icon: "👏",
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+        },
+      }); // do nothing if title or date is empty
     }
     inputText.date = selectedDate.toISOString();
     if (currentId) {
@@ -190,7 +197,7 @@ const Home = () => {
                     name="title"
                     onChange={changeHandeler}
                     className="form_input"
-                    placeholder="Text"
+                    placeholder="Title"
                   />
                   <DatePicker
                     selected={selectedDate}
