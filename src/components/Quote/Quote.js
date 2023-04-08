@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./quote.css";
+import { FcTodoList } from "react-icons/fc";
 
 const Quote = ({ refresh }) => {
   const [quote, setQuote] = useState("");
@@ -61,10 +62,10 @@ const Quote = ({ refresh }) => {
       <div className="author">- {quote.author || "Unknown"}</div>
       <button
         className="qote_button"
-        style={{ position: "absolute", top: 1, right: 3 }}
+        style={{ position: "absolute", top: "2rem", right: "2rem" }}
         onClick={quoteButtonHandler}
       >
-        See Todo's
+        <FcTodoList />
       </button>
     </div>
   );
