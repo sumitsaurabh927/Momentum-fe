@@ -46,6 +46,7 @@ export const sendSmsNotification = (note) => async (dispatch) => {
     console.log("sms notification", response);
   } catch (error) {
     console.log("sendSms error", error);
+    toast.error(error.response.data.message);
   }
 };
 
@@ -55,6 +56,7 @@ export const sendEmailNotification = (note) => async (dispatch) => {
     console.log("email notification", response);
   } catch (error) {
     console.log("sendEmail error", error);
+    toast.error(error.response.data.message);
   }
 };
 
