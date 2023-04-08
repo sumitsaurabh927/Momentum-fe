@@ -40,7 +40,7 @@ const Login = () => {
   return (
     <div className="auth_container">
       <div className="auth_header">
-        <h2>moonShine</h2>
+        <h2>MoonShine</h2>
       </div>
       <form onSubmit={handleFormSubmit} className="auth_form">
         <label for="email">Email</label>
