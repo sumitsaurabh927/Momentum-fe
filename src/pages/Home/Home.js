@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { TiPlus } from "react-icons/ti";
+import toast from "react-hot-toast";
 
 const Home = () => {
   const [inputText, setInputText] = useState({
@@ -111,9 +112,25 @@ const Home = () => {
     inputText.date = selectedDate.toISOString();
     if (currentId) {
       dispatch(updateNote(currentId, inputText));
+      toast("Todo updated!", {
+        icon: "👏",
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+        },
+      });
       setIsEditing(false);
     } else {
       dispatch(createNote({ ...inputText, message: "created" }));
+      toast("Todo created!", {
+        icon: "👏",
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+        },
+      });
     }
     handleClearNote();
   };

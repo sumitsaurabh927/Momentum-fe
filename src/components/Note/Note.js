@@ -13,6 +13,7 @@ import { BsTrash3Fill } from "react-icons/bs";
 import { FiEdit } from "react-icons/fi";
 import { MdSms } from "react-icons/md";
 import { BsReverseLayoutTextWindowReverse } from "react-icons/bs";
+import toast from "react-hot-toast";
 
 const Note = ({
   item,
@@ -49,6 +50,14 @@ const Note = ({
     try {
       dispatch(deleteTodoInApp(deleteInAppNote));
       dispatch(deleteNote(item._id));
+      toast.error("Todo deleted!", {
+        icon: "👏",
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+        },
+      });
     } catch (error) {
       console.log("deleteTodoHandler error", error);
     }

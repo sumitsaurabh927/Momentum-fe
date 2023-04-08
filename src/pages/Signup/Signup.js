@@ -113,7 +113,7 @@ const Signup = () => {
               className="auth_button"
               disabled={!(formValue.email && formValue.password)}
             >
-              Login
+              Signup
             </button>
           )}
         </div>
