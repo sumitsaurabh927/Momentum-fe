@@ -13,10 +13,12 @@ import {
 import { BsFillMoonFill, BsFillSunFill } from "react-icons/bs";
 import { GrLogout } from "react-icons/gr";
 import { BsBlockquoteLeft } from "react-icons/bs";
+import NotificationList from "./NotificationList";
 
 // Declaring a functional component named 'Header'
 const Header = ({ theme, themeHandeler }) => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+  // const [newNotification, setNewNotification] = useState(true);
 
   // Initializing constants using the 'useNavigate', 'useLocation', and 'useDispatch' hooks
   const navigate = useNavigate();
@@ -61,6 +63,7 @@ const Header = ({ theme, themeHandeler }) => {
   };
 
   const handleNotificationClick = (message) => {
+    // setNewNotification(false);
     if (message?.cta?.data?.url) {
       window.location.href = message.cta.data.url;
     }
@@ -119,51 +122,12 @@ const Header = ({ theme, themeHandeler }) => {
                 </button>
                 <PopoverNotificationCenter
                   onNotificationClick={handleNotificationClick}
-                  listItem={(notification) => {
-                    if (notification.payload.message === "created") {
-                      return (
-                        <div
-                          className="notification_container"
-                          style={{
-                            boxShadow: theme
-                              ? "0px 5px 10px rgba(236, 109, 109, 0.4)"
-                              : "0px 5px 10px rgba(0.1,0.5,0.5,0.1)",
-                          }}
-                        >
-                          <span
-                            style={{ color: theme ? "#fff" : "#000" }}
-                          >{`${notification.payload.message} Todo`}</span>
-                          <h3 style={{ color: theme ? "#fff" : "#000" }}>
-                            {notification.payload.title}
-                          </h3>
-                          <p style={{ color: theme ? "#fff" : "#000" }}>
-                            {notification.payload.description}
-                          </p>
-                        </div>
-                      );
-                    } else if (notification.payload.message === "deleted") {
-                      return (
-                        <div
-                          className="notification_container"
-                          style={{
-                            boxShadow: theme
-                              ? "0px 5px 10px rgba(236, 109, 109, 0.4)"
-                              : "0px 5px 10px rgba(0.1,0.5,0.5,0.1)",
-                          }}
-                        >
-                          <span
-                            style={{ color: theme ? "#fff" : "#000" }}
-                          >{`${notification.payload.message} Todo`}</span>
-                          <h3 style={{ color: theme ? "#fff" : "#000" }}>
-                            {notification.payload.title}
-                          </h3>
-                          <p style={{ color: theme ? "#fff" : "#000" }}>
-                            {notification.payload.description}
-                          </p>
-                        </div>
-                      );
-                    }
-                  }}
+                  listItem={(notification) => (
+                    <NotificationList
+                      notification={notification}
+                      theme={theme}
+                    />
+                  )}
                   colorScheme={theme ? "dark" : "light"}
                 >
                   {({ unseenCount }) => (
