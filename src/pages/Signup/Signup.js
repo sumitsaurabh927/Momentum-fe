@@ -97,7 +97,7 @@ const Signup = () => {
         )}
         <label for="confirmpassword">ConfirmPassword</label>
         <input
-          type="text"
+          type="password"
           className="auth_input"
           id="confirmpassword"
           value={formValue.confirm_password}
